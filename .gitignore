@@ -1,0 +1,41 @@
+HELP.md
+.gradle
+build/
+init*/src/main/**/build/
+init*/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+init*/src/main/**/bin/
+init*/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+init*/src/main/**/out/
+init*/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# Eclipse project files
+.project
+.classpath
+.settings/
