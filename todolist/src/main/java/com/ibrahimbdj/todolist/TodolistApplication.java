@@ -1,13 +1,13 @@
-package fr.IbrahimBoudjaoui.todolististApp;
+package com.ibrahimbdj.todolist;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TodolististAppApplication {
+public class TodolistApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TodolististAppApplication.class, args);
+		SpringApplication.run(TodolistApplication.class, args);
 	}
 
 }

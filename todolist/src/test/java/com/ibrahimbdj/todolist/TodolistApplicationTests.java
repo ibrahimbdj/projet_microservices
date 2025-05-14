@@ -1,10 +1,10 @@
-package fr.IbrahimBoudjaoui.todolististApp;
+package com.ibrahimbdj.todolist;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TodolististAppApplicationTests {
+class TodolistApplicationTests {
 
 	@Test
 	void contextLoads() {
