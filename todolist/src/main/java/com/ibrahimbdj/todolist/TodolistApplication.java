@@ -24,11 +24,11 @@ public class TodolistApplication {
 	}
 	
 	@RestController
-	public class todolistservice {
+	public class Todolistservice {
 		
 		private List<Todolist> tdls;
 		
-		public todolistservice() {
+		public Todolistservice() {
 			this.tdls = new ArrayList<Todolist>();
 		}
 		
