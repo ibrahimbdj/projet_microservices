@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: todolist
+    version: "1.0"
+  name: todolist
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todolist
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: todolist
+    spec:
+      containers:
+        - name: todolist
+          image: ibrahimbdj/todolist:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: todolist
+  name: todolist
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+      name: http
+  selector:
+    app: todolist
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: passwd_generation
+    version: "1.0"
+  name: passwd_generation
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: passwd_generation
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: passwd_generation
+    spec:
+      containers:
+        - name: passwd_generation
+          image: ibrahimbdj/passwd_generation:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: passwd_generation
+  name: passwd_generation
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+      name: http
+  selector:
+    app: passwd_generation
+  type: LoadBalancer
+status:
+  loadBalancer: {}
