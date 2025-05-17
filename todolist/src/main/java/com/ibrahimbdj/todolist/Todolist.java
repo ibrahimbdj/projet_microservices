@@ -12,8 +12,13 @@ public class Todolist {
 	public Todolist(String title) {
 		this.title = title;
 		this.id = next_id;
+		System.out.println(id);
 		next_id++;
 		this.taches = new ArrayList<String> ();
+	}
+	
+	public Todolist() {
+		this.taches = new ArrayList<String>();
 	}
 	
 	public String getTitle() {

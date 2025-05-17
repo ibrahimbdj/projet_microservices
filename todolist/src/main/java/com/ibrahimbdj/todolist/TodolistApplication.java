@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @SpringBootApplication
 public class TodolistApplication {
@@ -63,7 +64,7 @@ public class TodolistApplication {
 			for (int i = 0; i < tdls.size(); i++) {
 				if(tdls.get(i).getId() == id) {
 					Todolist tdl = tdls.get(i);
-					String s = "<strong>" + tdl.getTitle() + ":<strong><br><br>";
+					String s = "<strong>" + tdl.getTitle() + ":</strong><br><br>";
 					
 					for (int j = 0; j < tdl.getTaches().size(); j++) {
 						s = s + tdl.getTaches().get(j) + ";<br>";
@@ -83,8 +84,16 @@ public class TodolistApplication {
 		@PutMapping("/todolist/{id}")
 		@ResponseStatus(HttpStatus.OK)
 		private void update_tdl(@PathVariable("id") int id, @RequestBody Todolist tdl) {
+			boolean found = false;
 			for (int i = 0; i < tdls.size(); i++) {
-						if(tdls.get(i).getId() == id) tdls.set(i, tdl);
+						if(tdls.get(i).getId() == id) {
+							tdls.set(i, tdl);
+							tdl.setId(id);
+							found = true;
+						}
+			}
+			if(!found) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Todolist introuvable");
 			}
 		}
 		
