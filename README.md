@@ -47,7 +47,7 @@ Vous pouvez ensuite sortir du dossier
 cd ..
 ```
 Et executez la commande:
-- Window :
+- Window (powershell !):
 ```
 minikube -p minikube docker-env | Invoke-Expression
 ```
