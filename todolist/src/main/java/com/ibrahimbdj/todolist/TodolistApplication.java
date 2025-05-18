@@ -41,7 +41,7 @@ public class TodolistApplication {
 			return "Mode d'utilisation:<br><br>"
 					+ "GET /todolist: liste des todolist<br>"
 					+ "GET /todolist/{id_todolist}: affiche une todolist<br>"
-					+ "POST /todolist: crée une liste avec le nom du parametre<br>"
+					+ "POST /todolist?title=titre: crée une liste titré avec la valeur du parametre<br>"
 					+ "PUT /todolist/{id_todolist}: modifie une todolist<br>"
 					+ "DELETE /todolist/{id_todolist}: supprime une todolist<br><br>"
 					+ "GET /generatepwd: appelle le microservice qui génère un mdp sécurisé pour fournir le mdp"
@@ -54,6 +54,13 @@ public class TodolistApplication {
 					+ "pas de refaire un appel GET<br>";
 		}
 		
+		
+		@GetMapping("/generatepwd")
+		private String generatepwd() {
+			RestTemplate rt = new RestTemplate();
+			String pwd = rt.getForObject("http://passwdgeneration:80/generate", String.class);
+			return pwd;
+		}
 		
 		@GetMapping("/todolist")
 		private String tdls(){
