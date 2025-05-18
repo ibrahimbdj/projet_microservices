@@ -6,7 +6,7 @@ metadata:
     version: "1.0"
   name: todolist
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: todolist
@@ -54,24 +54,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: passwd_generation
+    app: passwdgeneration
     version: "1.0"
-  name: passwd_generation
+  name: passwdgeneration
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: passwd_generation
+      app: passwdgeneration
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: passwd_generation
+        app: passwdgeneration
     spec:
       containers:
-        - name: passwd_generation
-          image: ibrahimbdj/passwd_generation:latest
+        - name: passwdgeneration
+          image: ibrahimbdj/passwdgeneration:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -86,8 +86,8 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: passwd_generation
-  name: passwd_generation
+    app: passwdgeneration
+  name: passwdgeneration
 spec:
   ports:
     - port: 80
@@ -95,7 +95,71 @@ spec:
       targetPort: 8080
       name: http
   selector:
-    app: passwd_generation
+    app: passwdgeneration
   type: LoadBalancer
 status:
   loadBalancer: {}
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: projetmicroservice-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: todolist
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - projetmicroservice-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /todolist/
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            port:
+              number: 80
+            host: todolist.default.svc.cluster.local
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: passwdgeneration
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - projetmicroservice-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /passwdgeneration/
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            port:
+              number: 80
+            host: passwdgeneration.default.svc.cluster.local

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 @SpringBootApplication
@@ -42,11 +44,26 @@ public class TodolistApplication {
 					+ "POST /todolist: crée une liste avec le nom du parametre<br>"
 					+ "PUT /todolist/{id_todolist}: modifie une todolist<br>"
 					+ "DELETE /todolist/{id_todolist}: supprime une todolist<br><br>"
+					+ "GET /generatepwd: appelle le microservice qui génère un mdp sécurisé pour fournir le mdp"
+					+ "cette route en soi n'est pas si utile mais je la fait juste pour faire une communication"
+					+ "entre deux microservice (service mesh)<br>"
 					+ "Une todolist créée a un id donné automatiquement afin de simplifier les "
 					+ "chose attention de bien mettre l'id lors du test il seras visible sur "
 					+ "la liste des todolist<br>"
 					+ "pour voir les mise à jour faites avec post/put/delete n'oubliez "
 					+ "pas de refaire un appel GET<br>";
+		}
+		
+		@GetMapping("/generate")
+		private String generatepwd() {
+			 String s;
+			try {
+				s = RestTemplate.getForObject("http://passwdgeneration:80/gen", String.class);
+			} catch (RestClientException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		     return "Mot de passe généré : " + s;
 		}
 		
 		@GetMapping("/todolist")

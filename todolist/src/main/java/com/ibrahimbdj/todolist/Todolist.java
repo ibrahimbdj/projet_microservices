@@ -6,6 +6,7 @@ import java.util.List;
 public class Todolist {
 	private String title;
 	private int id;
+	private String pwd;
 	private List<String> taches;
 	private static int next_id = 0;
 	
@@ -45,4 +46,11 @@ public class Todolist {
 		this.taches = taches;
 	}
 	
+	public String getPwd() {
+		return pwd;
+	}
+	
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
 }
