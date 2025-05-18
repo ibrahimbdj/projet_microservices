@@ -65,7 +65,7 @@ Pour finir vous obtenez l'adresse avec :
 ```
 kubectl -n istio-system port-forward deployment/istio-ingressgateway 31380:8080
 ```
-Vous pouvez ensuite accéder aux microservices via les routes seront expliqué aux racines des deux microservice:
+Vous pouvez ensuite accéder aux microservices via les routes seront expliqué aux racines des deux microservice, le démarrage peut prendre quelques dizaines de secondes:
 
 http://localhost:31380/todolist/
 
