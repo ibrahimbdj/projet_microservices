@@ -57,7 +57,7 @@ minikube docker-env
 eval $(minikube -p minikube docker-env)
 eval $(minikube docker-env)  
 ```
-Maintenant placer récupérer le projet en local, placez-vous à la racine du projet et executez :
+Maintenant récupérez le projet en local, placez-vous à la racine du projet et executez :
 ```
 kubectl apply -f deployment.yml
 ```
