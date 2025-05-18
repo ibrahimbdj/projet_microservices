@@ -54,17 +54,6 @@ public class TodolistApplication {
 					+ "pas de refaire un appel GET<br>";
 		}
 		
-		@GetMapping("/generate")
-		private String generatepwd() {
-			 String s;
-			try {
-				s = RestTemplate.getForObject("http://passwdgeneration:80/gen", String.class);
-			} catch (RestClientException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		     return "Mot de passe généré : " + s;
-		}
 		
 		@GetMapping("/todolist")
 		private String tdls(){
